@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Generator</title>
+    <script src="index.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('background.jpg'); /* Use the correct path to your background image */
+            background-size: cover;
+            background-attachment: fixed;
+            color: #444;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .overlay {
+        background-color: rgba(255, 255, 255, 0.6); /* Increased transparency */
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+}
+
+        .form-container, .bill-container {
+            background-color: rgba(255, 255, 255, 0.9); /* More transparent background for containers */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 48%;
+        }
+
+        .form-container h1, .bill-container h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+        }
+
+        .form-container input, .form-container select, .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-container input:focus, .form-container select:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .form-container button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-container button:disabled {
+            background-color: grey;
+            cursor: not-allowed;
+        }
+
+        .form-container button:hover:not(:disabled) {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        table, th, td {
+            border: 1px solid #007BFF;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        td {
+            background-color: #f1f1f1;
+        }
+
+        #billTable {
+            display: none;
+        }
+
+        #billTable h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .bill-summary {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <div class="form-container">
+        <h1>Electricity Bill Generator</h1>
+
+        <label for="consumerName">Consumer Name:</label>
+        <input type="text" id="consumerName" maxlength="14" oninput="validateInput()" placeholder="Enter Name">
+        
+        <label for="consumerNumber">Consumer Number:</label>
+        <input type="number" id="consumerNumber" maxlength="9" oninput="validateInput()" placeholder="Enter 9-digit Number">
+        
+        <label for="consumerType">Consumer Type:</label>
+        <select id="consumerType" onchange="validateInput()">
+            <option value="">Select Type</option>
+            <option value="domestic">Domestic User</option>
+            <option value="commercial">Commercial User</option>
+            <option value="industrial">Industrial User</option>
+        </select>
+        
+        <label for="unitsConsumed">Units Consumed:</label>
+        <input type="number" id="unitsConsumed" oninput="validateInput()" placeholder="Enter Units">
+        
+        <label for="dueDate">Select Due Date:</label>
+        <input type="date" id="dueDate" onchange="validateDate()" min="" max="">
+        
+        <button id="generateBillBtn" onclick="generateBill()" disabled>Generate Bill</button>
+        <button id="printBillBtn" onclick="printBill()" disabled>Print Bill</button>
+        <button id="discardBillBtn" onclick="discardBill()">Discard Bill</button>
+    </div>
+
+    <div class="bill-container" id="billTable">
+        <h2>Electricity Bill</h2>
+        <table>
+            <tr><th>Name</th><td id="billName"></td></tr>
+            <tr><th>Consumer Number</th><td id="billNumber"></td></tr>
+            <tr><th>Billing Unit</th><td id="billType"></td></tr>
+            <tr><th>Consumption</th><td id="billConsumption"></td></tr>
+            <tr><th>Bill Month</th><td id="billMonth"></td></tr>
+            <tr><th>Bill Date</th><td id="billDate"></td></tr>
+            <tr><th>Bill Amount</th><td id="billAmount"></td></tr>
+            <tr><th>Bill Due Date</th><td id="billDueDate"></td></tr>
+            <tr><th>Amount After Due Date</th><td id="billLateAmount"></td></tr>
+        </table>
+        <div class="bill-summary">
+            Please make sure to pay the bill before the due date to avoid additional charges.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
