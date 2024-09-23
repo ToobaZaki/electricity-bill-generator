@@ -8,14 +8,23 @@ The Electricity Bill Generator is a web-based application that allows users to g
 Features:
 
 Input consumer details such as name, number, type, and units consumed.
+
 Select due date for the bill payment.
+
 Dynamically generate an electricity bill based on user input.
+
 View bill details including total amount and late payment charges.
+
 Print the generated bill or discard it.
+
 Responsive layout with a clean and modern user interface.
+
 Technologies Used
+
 HTML: Structure of the web application.
+
 CSS: Styling and layout of the user interface.
+
 JavaScript: Handles the logic for generating the bill and validating user input.
 
 Future Improvements:
